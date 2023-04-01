@@ -2,8 +2,7 @@
 
 import { WolfGallery } from './WolfGallery';
 
-import './styles/reset.css';
-import './styles/index.css';
+
 
 
 function App() {

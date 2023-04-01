@@ -1,16 +1,14 @@
-import {useState} from 'react';
+import { useState } from 'react';
+
+import { Photo } from './types.ts';
+import { PreviewList } from './PreviewList';
+import { MainPhoto } from './MainPhoto';
+
 import style from './index.module.scss';
 
-interface Photo {
-    id: number;
-    src: string;
-    description: string;
-}
 interface WolfGalleryProps {
     photos: Photo[],
 }
-
-console.log(style)
 
 export const WolfGallery: React.FC<WolfGalleryProps> = ({
     photos,
@@ -20,29 +18,12 @@ export const WolfGallery: React.FC<WolfGalleryProps> = ({
     }
 
     const [ indexActivePhoto, setIndexActivePhoto ] = useState(0);
+    const activePhoto = photos[indexActivePhoto];
 
     return (
         <div className={style.wolfGallery}>
-            <div className={style.wolfGalleryContainer}>
-
-            </div>
-            <div className={style.wolfGalleryWrapper}>
-                <ul className={style.wolfGalleryTrack}>
-                    {photos.map((photo) => (
-                        <li
-                            key={photo.id}
-                            className={style.wolfGalleryPreview}
-                        >
-                            <img
-                                src={photo.src}
-                                alt={photo.description}
-                                loading="lazy"
-                                className={style.wolfGalleryPreview}
-                            />
-                        </li>
-                    ))}
-                </ul>
-            </div>
+            <MainPhoto photo={activePhoto} />
+            <PreviewList photos={photos} />
         </div>
     )
 }
