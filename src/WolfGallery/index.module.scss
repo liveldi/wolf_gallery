@@ -6,4 +6,15 @@
     &PreviewList {
         margin: 0 auto;
     }
+
+    &Container {
+        position: relative;
+    }
+
+    &Navigation {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translate(-50%, 0);
+    }
 }

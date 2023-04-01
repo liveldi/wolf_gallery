@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Photo } from './types.ts';
 import { PreviewList } from './PreviewList';
 import { MainPhoto } from './MainPhoto';
+import { Navigation } from './Navigation';
 
 import style from './index.module.scss';
 
@@ -22,10 +23,13 @@ export const WolfGallery: React.FC<WolfGalleryProps> = ({
 
     return (
         <div className={style.wolfGallery}>
-            <MainPhoto
-                photo={activePhoto}
-                className={style.wolfGalleryMainPhoto}
-            />
+            <div className={style.wolfGalleryContainer}>
+                <MainPhoto
+                    photo={activePhoto}
+                    className={style.wolfGalleryMainPhoto}
+                />
+                <Navigation className={style.wolfGalleryNavigation}/>
+            </div>
             <PreviewList
                 photos={photos}
                 className={style.wolfGalleryPreviewList}
