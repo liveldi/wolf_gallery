@@ -1,1 +1,9 @@
-.wolfGallery {}
+.wolfGallery {
+    &MainPhoto {
+        margin-bottom: 5px;
+    }
+
+    &PreviewList {
+        margin: 0 auto;
+    }
+}

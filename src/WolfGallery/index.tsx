@@ -22,8 +22,14 @@ export const WolfGallery: React.FC<WolfGalleryProps> = ({
 
     return (
         <div className={style.wolfGallery}>
-            <MainPhoto photo={activePhoto} />
-            <PreviewList photos={photos} />
+            <MainPhoto
+                photo={activePhoto}
+                className={style.wolfGalleryMainPhoto}
+            />
+            <PreviewList
+                photos={photos}
+                className={style.wolfGalleryPreviewList}
+            />
         </div>
     )
 }
