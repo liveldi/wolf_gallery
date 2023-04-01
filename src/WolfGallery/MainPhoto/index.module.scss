@@ -2,7 +2,9 @@
     position: relative;
     width: 100%;
     padding-bottom: 50%;
-    background: #eaeaea;
+    background: #97a9b2;
+    border-radius: 5px;
+    overflow: hidden;
 
     &Image {
         position: absolute;
@@ -12,5 +14,6 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+        border-radius: 5px;
     }
 }

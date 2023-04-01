@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { Photo } from './types.ts';
-import { PreviewList } from './PreviewList';
+import { PreviewGallery } from './PreviewGallery/index.tsx';
 import { MainPhoto } from './MainPhoto';
 import { Navigation } from './Navigation';
 
@@ -30,7 +30,8 @@ export const WolfGallery: React.FC<WolfGalleryProps> = ({
                 />
                 <Navigation className={style.wolfGalleryNavigation}/>
             </div>
-            <PreviewList
+            <PreviewGallery
+                activePhoto={indexActivePhoto + 1}
                 photos={photos}
                 className={style.wolfGalleryPreviewList}
             />

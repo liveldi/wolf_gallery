@@ -4,11 +4,13 @@ import { Photo, CommonClassProps } from '../types.ts';
 
 import style from './index.module.scss';
 
-interface PreviewListProps extends CommonClassProps {
-    photos: Photo[],
+interface PreviewGalleryProps extends CommonClassProps {
+    photos: Photo[];
+    activePhoto: number;
 }
 
-export const PreviewList: React.FC<PreviewListProps> = ({
+export const PreviewGallery: React.FC<PreviewGalleryProps> = ({
+    activePhoto,
     photos,
     className
 }) => {
@@ -17,22 +19,25 @@ export const PreviewList: React.FC<PreviewListProps> = ({
     }
 
     return (
-        <div className={cl(style.previewList, className)}>
-            <ul className={style.previewListTrack}>
+        <div className={cl(style.previewGallery, className)}>
+            <ul className={style.previewGalleryTrack}>
                 {photos.map((photo) => (
                     <li
                         key={photo.id}
-                        className={style.previewListPreview}
+                        className={style.previewGalleryPreview}
                     >
                         <img
                             src={photo.src}
                             alt={photo.description}
                             loading="lazy"
-                            className={style.previewListImage}
+                            className={style.previewGalleryImage}
                         />
                     </li>
                 ))}
             </ul>
+            <div className={style.previewGalleryCover}>
+                {activePhoto} / {photos.length}
+            </div>
         </div>
     )
 }

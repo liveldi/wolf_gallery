@@ -16,15 +16,9 @@
         background-size: 52% auto;
         transition: opacity 0.3s, background-color 0.3s;
         cursor: pointer;
-
-        &Left {
-            border-top-left-radius: 5px;
-            border-bottom-left-radius: 5px;
-        }
+        border-radius: 5px;
 
         &Right {
-            border-top-right-radius: 5px;
-            border-bottom-right-radius: 5px;
             background-image: url('./images/arrow-right.svg');
         }
 
