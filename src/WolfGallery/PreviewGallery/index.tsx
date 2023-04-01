@@ -42,7 +42,7 @@ export const PreviewGallery: React.FC<PreviewGalleryProps> = ({
                             className={style.previewGalleryPreview}
                         >
                             <img
-                                src={photo.src}
+                                src={photo.preview}
                                 alt={photo.description}
                                 loading="lazy"
                                 className={style.previewGalleryImage}
