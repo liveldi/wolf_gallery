@@ -1,6 +1,6 @@
 import cl from 'classnames';
 
-import { CommonClassProps } from '../types.ts';
+import { CommonClassProps } from '../types';
 
 import style from './index.module.scss';
 

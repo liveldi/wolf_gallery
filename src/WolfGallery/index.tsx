@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
-import { Photo } from './types.ts';
-import { PreviewGallery } from './PreviewGallery/index.tsx';
-import { TransitionPhoto } from './TransitionPhoto/index.tsx';
+import { Photo } from './types';
+import { PreviewGallery } from './PreviewGallery';
+import { TransitionPhoto } from './TransitionPhoto';
 import { Navigation } from './Navigation';
 
 import style from './index.module.scss';

@@ -1,7 +1,7 @@
 import { useMemo, useRef, useEffect } from 'react';
 import cl from 'classnames';
 
-import { Photo, CommonClassProps } from '../types.ts';
+import { Photo, CommonClassProps } from '../types';
 
 import style from './index.module.scss';
 
@@ -44,7 +44,6 @@ export const PreviewGallery: React.FC<PreviewGalleryProps> = ({
                             <img
                                 src={photo.preview}
                                 alt={photo.description}
-                                loading="lazy"
                                 className={style.previewGalleryImage}
                             />
                         </li>
