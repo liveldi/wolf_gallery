@@ -2,9 +2,6 @@
 
 import { WolfGallery } from './WolfGallery';
 
-
-
-
 function App() {
   return (
     <main id="main">

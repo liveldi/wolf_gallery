@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { Photo } from './types.ts';
 import { PreviewGallery } from './PreviewGallery/index.tsx';
-import { MainPhoto } from './MainPhoto';
+import { TransitionPhoto } from './TransitionPhoto/index.tsx';
 import { Navigation } from './Navigation';
 
 import style from './index.module.scss';
@@ -20,18 +20,32 @@ export const WolfGallery: React.FC<WolfGalleryProps> = ({
 
     const [ indexActivePhoto, setIndexActivePhoto ] = useState(0);
     const activePhoto = photos[indexActivePhoto];
+    const prevPhoto = photos[indexActivePhoto - 1];
+    const nextPhoto = photos[indexActivePhoto + 1];
 
     return (
         <div className={style.wolfGallery}>
             <div className={style.wolfGalleryContainer}>
-                <MainPhoto
-                    photo={activePhoto}
+                <TransitionPhoto
+                    prevPhoto={prevPhoto}
+                    currentPhoto={activePhoto}
+                    nextPhoto={nextPhoto}
                     className={style.wolfGalleryMainPhoto}
                 />
-                <Navigation className={style.wolfGalleryNavigation}/>
+                <Navigation
+                    className={style.wolfGalleryNavigation}
+                    disabledPrev={!prevPhoto}
+                    disabledNext={!nextPhoto}
+                    onPrevClick={() => {
+                        setIndexActivePhoto(indexActivePhoto - 1);
+                    }}
+                    onNextClick={() => {
+                        setIndexActivePhoto(indexActivePhoto + 1);
+                    }}
+                />
             </div>
             <PreviewGallery
-                activePhoto={indexActivePhoto + 1}
+                activePhotoIndex={indexActivePhoto}
                 photos={photos}
                 className={style.wolfGalleryPreviewList}
             />

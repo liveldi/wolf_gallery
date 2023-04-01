@@ -1,4 +1,6 @@
 .wolfGallery {
+    user-select: none;
+    
     &MainPhoto {
         margin-bottom: 5px;
     }
@@ -15,6 +17,7 @@
         position: absolute;
         bottom: 10px;
         left: 50%;
+        z-index: 3;
         transform: translate(-50%, 0);
     }
 }

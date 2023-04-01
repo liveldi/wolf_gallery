@@ -4,8 +4,11 @@
     position: relative;
 
     &Track {
+        position: relative;
+        left: 164px;
         display: flex;
         white-space: nowrap;
+        transition: transform 0.5s ease-out;
     }
 
     &Preview {
@@ -29,7 +32,7 @@
         height: 100%;
         position: absolute;
         z-index: 2;
-        width: 154px;
+        width: 164px;
         background: rgba(255, 255, 255, 0.7);
         left: 50%;
         top: 0;
