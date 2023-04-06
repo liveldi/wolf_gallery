@@ -8,12 +8,14 @@ import style from './index.module.scss';
 interface PreviewGalleryProps extends CommonClassProps {
     photos: Photo[];
     activePhotoIndex: number;
+    setNewPhoto: (id: number) => void;
 }
 
 export const PreviewGallery: React.FC<PreviewGalleryProps> = ({
     activePhotoIndex,
     photos,
-    className
+    className,
+    setNewPhoto,
 }) => {
     if (!photos.length) {
         return null;
@@ -27,7 +29,7 @@ export const PreviewGallery: React.FC<PreviewGalleryProps> = ({
         }
 
         previewContainer.current.style.transform = `translate3d(-${activePhotoIndex * 164}px, 0, 0)`
-    }, [ activePhotoIndex ])
+    }, [ activePhotoIndex ]);
 
     return (
         <div className={cl(style.previewGallery, className)}>
@@ -36,8 +38,9 @@ export const PreviewGallery: React.FC<PreviewGalleryProps> = ({
                     className={style.previewGalleryTrack}
                     ref={previewContainer}
                 >
-                    {photos.map((photo) => (
-                        <li
+                    {photos.map((photo, id) => (
+                        <button
+                            onClick={() => setNewPhoto(id)}
                             key={photo.id}
                             className={style.previewGalleryPreview}
                         >
@@ -46,7 +49,7 @@ export const PreviewGallery: React.FC<PreviewGalleryProps> = ({
                                 alt={photo.description}
                                 className={style.previewGalleryImage}
                             />
-                        </li>
+                        </button>
                     ))}
                 </ul>
             ), [])}

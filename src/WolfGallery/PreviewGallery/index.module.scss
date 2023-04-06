@@ -19,6 +19,14 @@
         background: #97a9b2;
         border-radius: 5px;
         overflow: hidden;
+        padding: 0;
+        border: none;
+        cursor: pointer;
+        transition: opacity 0.3s;
+
+        &:hover {
+            opacity: 0.7;
+        }
     }
 
     &Image {

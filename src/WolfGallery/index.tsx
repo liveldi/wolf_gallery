@@ -48,6 +48,7 @@ export const WolfGallery: React.FC<WolfGalleryProps> = ({
                 activePhotoIndex={indexActivePhoto}
                 photos={photos}
                 className={style.wolfGalleryPreviewList}
+                setNewPhoto={setIndexActivePhoto}
             />
         </div>
     )
