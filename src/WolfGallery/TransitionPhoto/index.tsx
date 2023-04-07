@@ -21,6 +21,16 @@ const hidePhoto = (element: HTMLElement | null) => {
     }
 
     element.dataset.active = 'false';
+
+    if (element.previousSibling) {
+        // @ts-ignore
+        element.previousSibling.dataset.active = 'false';
+    }
+
+    if (element.nextSibling) {
+        // @ts-ignore
+        element.nextSibling.dataset.active = 'false';
+    }
 }
 
 const showPhoto = (element: HTMLElement | null) => {
@@ -32,12 +42,12 @@ const showPhoto = (element: HTMLElement | null) => {
 
     if (element.previousSibling) {
         // @ts-ignore
-        element.previousSibling.dataset.active = 'preparing';
+        element.previousSibling.dataset.active = 'prepared';
     }
 
     if (element.nextSibling) {
         // @ts-ignore
-        element.nextSibling.dataset.active = 'preparing';
+        element.nextSibling.dataset.active = 'prepared';
     }
 }
 
