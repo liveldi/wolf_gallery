@@ -1,4 +1,4 @@
-import { useRef, useMemo, useState, useLayoutEffect } from 'react';
+import { useRef, useMemo, useLayoutEffect, useState } from 'react';
 import cl from 'classnames';
 
 import { Photo, CommonClassProps } from '../types';
@@ -6,74 +6,82 @@ import { Photo, CommonClassProps } from '../types';
 import style from './index.module.scss';
 
 interface TransitionPhotoProps extends CommonClassProps {
-    prevPhoto?: Photo;
-    currentPhoto: Photo;
-    nextPhoto?: Photo;
+    indexActivePhoto: number;
+    photos: Photo[];
+}
+
+type RefT = React.MutableRefObject<HTMLDivElement | null>;
+const getPhotoByRef = (ref: RefT, index: number): HTMLElement | null => {
+    return ref.current!.querySelector(`img:nth-of-type(${index + 1})`);
+}
+
+const hidePhoto = (element: HTMLElement | null) => {
+    if (!element) {
+        return;
+    }
+
+    element.dataset.active = 'false';
+}
+
+const showPhoto = (element: HTMLElement | null) => {
+    if (!element) {
+        return;
+    }
+
+    element.dataset.active = 'true';
+
+    if (element.previousSibling) {
+        // @ts-ignore
+        element.previousSibling.dataset.active = 'preparing';
+    }
+
+    if (element.nextSibling) {
+        // @ts-ignore
+        element.nextSibling.dataset.active = 'preparing';
+    }
 }
 
 export const TransitionPhoto: React.FC<TransitionPhotoProps> = ({
-    prevPhoto,
-    currentPhoto,
-    nextPhoto,
+    photos,
+    indexActivePhoto,
     className,
 }) => {
-    const refMainPhoto = useRef<HTMLImageElement | null>(null);
-    const refPrevPhoto = useRef<HTMLImageElement | null>(null);
-    const refNextPhoto = useRef<HTMLImageElement | null>(null);
+    if (!photos.length) {
+        return null;
+    }
 
-    const refsToTimeouts = useRef([0, 0, 0]);
-    const [ showedPhotos, setShowedPhotos ] = useState([
-        prevPhoto,
-        currentPhoto,
-        nextPhoto,
-    ]);
+    const [ prevActiveIndexPhoto, setPrevActiveIndexPhoto ] = useState(indexActivePhoto);
 
+    const containerRef = useRef<HTMLDivElement | null>(null);
     useLayoutEffect(() => {
-        // Hide current photo
-        if (showedPhotos[1]?.id !== currentPhoto.id) {
-            refMainPhoto.current!.style.opacity = '0';
+        const activePhoto = getPhotoByRef(containerRef, prevActiveIndexPhoto);
+        const nextActivePhoto = getPhotoByRef(containerRef, indexActivePhoto);
+
+        if (prevActiveIndexPhoto !== indexActivePhoto) {
+            hidePhoto(activePhoto);
+            showPhoto(nextActivePhoto);
+        } else {
+            showPhoto(activePhoto);
         }
 
-        // Show prev photo
-        if (showedPhotos[0]?.id === currentPhoto.id) {
-            refPrevPhoto.current!.style.opacity = '1';
-        }
-
-        // Show next photo
-        if (showedPhotos[2]?.id === currentPhoto.id) {
-            refNextPhoto.current!.style.opacity = '1';
-        }
-
-        setTimeout(() => {
-            setShowedPhotos([prevPhoto, currentPhoto, nextPhoto])
-            refMainPhoto.current!.style.opacity = '1'
-        }, 200);
-    }, [ currentPhoto ]);
+        setPrevActiveIndexPhoto(indexActivePhoto);
+    }, [ indexActivePhoto ]);
 
     return useMemo(() => (
-        <div className={cl(style.transitionPhoto, className)}>
-            {prevPhoto && (
+        <div
+            className={cl(style.transitionPhoto, className)}
+            ref={containerRef}
+        >
+            {photos.map((photo, id) => (
                 <img
-                    className={style.transitionPhotoImagePrev}
-                    src={prevPhoto.src}
-                    alt={prevPhoto.description}
-                    ref={refPrevPhoto}
+                    key={photo.id}
+                    className={style.transitionPhotoImage}
+                    data-active={id === indexActivePhoto}
+                    src={photo.src}
+                    loading="lazy"
+                    alt={photo.description}
                 />
-            )}
-            <img
-                className={style.transitionPhotoImage}
-                src={currentPhoto.src}
-                alt={currentPhoto.description}
-                ref={refMainPhoto}
-            />
-            {nextPhoto && (
-                <img
-                    className={style.transitionPhotoImageNext}
-                    src={nextPhoto.src}
-                    alt={nextPhoto.description}
-                    ref={refNextPhoto}
-                />
-            )}
+            ))}
         </div>
-    ), [showedPhotos[0]?.id]);
+    ), []);
 }

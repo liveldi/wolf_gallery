@@ -19,7 +19,6 @@ export const WolfGallery: React.FC<WolfGalleryProps> = ({
     }
 
     const [ indexActivePhoto, setIndexActivePhoto ] = useState(0);
-    const activePhoto = photos[indexActivePhoto];
     const prevPhoto = photos[indexActivePhoto - 1];
     const nextPhoto = photos[indexActivePhoto + 1];
 
@@ -27,9 +26,8 @@ export const WolfGallery: React.FC<WolfGalleryProps> = ({
         <div className={style.wolfGallery}>
             <div className={style.wolfGalleryContainer}>
                 <TransitionPhoto
-                    prevPhoto={prevPhoto}
-                    currentPhoto={activePhoto}
-                    nextPhoto={nextPhoto}
+                    photos={photos}
+                    indexActivePhoto={indexActivePhoto}
                     className={style.wolfGalleryMainPhoto}
                 />
                 <Navigation
